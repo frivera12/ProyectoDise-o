@@ -4,27 +4,116 @@ using UnityEngine;
 
 public class tableroLogico : MonoBehaviour {
 
-
+	//tamano del tablero
     private const float tamanioFicha = 1.0f;
     private const float borde = 0.5f;
-
+	//posiciones de las fichas
     private int xActual = -1;
     private int yActual = -1;
 
-    public List<GameObject> fichas;
-    public List<GameObject> fichasActivas;
+	public Ficha[,] fichas{ set; get;}
+
+	private Ficha FichaSeleccionada;
+
+	//posible manaje de turnos
+	private bool turnoJugadorVerde;
+	private bool Movio;
+	private bool Roto;
+	private bool Laser;
+
+	//posicion para rotar
+	private float Xfloat = -1.0f;
+	//fichas y sus posiciones
+	public List<GameObject> PrefabsFichas;
+	private List<GameObject>FichasActivas = new List<GameObject>() ;
+	private Quaternion orientacion = Quaternion.Euler(0,180,0);
 
 
+    // Use this for initialization
     void Start () {
 
-        iniciarTableroClasico();
+		Roto = false;
+		Movio = false;
+		Laser = false;
+		GenerarNivel1 ();
+	}
+
+	// Update is called once per frame
+	void Update () {
+		revisarSeleccion();
+		dibujarTablero();
+		if (Input.GetMouseButtonDown (0)) {
+			if (xActual >= 0 && yActual >= 0) {
+				if (FichaSeleccionada== null) {
+					//seleccionar
+					SeleccionarFicha(xActual,yActual);
+				}else{
+					//mover
+					MoverFicha(xActual,yActual);
+				}
+			}
+		}
+		if (Input.GetMouseButtonDown (1)) {
+			if (xActual >= 0 && yActual >= 0) {
+				if (FichaSeleccionada == null) {
+					SeleccionarFicha(xActual,yActual);
+				}else{
+					ActualizarFlotante();
+
+					if (Xfloat  > (0.50f+ FichaSeleccionada.ActualX) && Xfloat < (1.0f+ FichaSeleccionada.ActualX) 
+						&& yActual == FichaSeleccionada.ActualY) {
+						FichaSeleccionada.transform.Rotate(0.0f, transform.rotation.y + 90, 0.0f);
+						//Debug.Log("roto derecha");
+					}
+					else if(Xfloat< (0.50f+ FichaSeleccionada.ActualX) && Xfloat > FichaSeleccionada.ActualX 
+						&& yActual == FichaSeleccionada.ActualY)
+					{
+						FichaSeleccionada.transform.Rotate(0.0f, transform.rotation.y - 90, 0.0f);
+						//Debug.Log("roto izquierda");
+					}
+					Roto = true;
+				}
+			}
+		}
+	}
+
+	private void ColocarFichas(int indice,int x,int y){
+		GameObject go = Instantiate (PrefabsFichas [indice],
+			Centrar(x,y),/*Quaternion.identity*/orientacion) as GameObject;
+		go.transform.SetParent (transform);
+		fichas [x, y] = go.GetComponent<Ficha> ();
+		fichas [x, y].SetPosicion (x, y);
+		FichasActivas.Add (go);
+	}
+
+	private Vector3 Centrar(int x,int y){
+		//funcion que da una posicion a las fichas
+		Vector3 origen = Vector2.zero;
+		origen.x += (tamanioFicha * x) + borde;
+		origen.z +=(tamanioFicha* y)+borde;
+		return origen;
+	}
+	public void GenerarNivel1(){
+		FichasActivas = new List<GameObject> ();
+		fichas = new Ficha[8, 10];
+		//piramide
+		ColocarFichas(0,2,3);
+		ColocarFichas (0,1,1);
+		//faraon
+		ColocarFichas(1,3,3);
+	
+	}
+	public void GenerarNivel2(){
+		FichasActivas = new List<GameObject> ();
+		fichas = new Ficha[8, 10];
 
 	}
-	
-	void Update () {
-        revisarSeleccion();
-        //dibujarTablero();    
+	public void GenerarNivel3(){
+		FichasActivas = new List<GameObject> ();
+		fichas = new Ficha[8, 10];
 	}
+	
+
 
     private void dibujarTablero()
     {
@@ -73,53 +162,60 @@ public class tableroLogico : MonoBehaviour {
         }
     } 
 
-    private void colocarFicha(int index, Vector3 posicion)
-    {
-        GameObject temporal = Instantiate(fichas[index], posicion, Quaternion.identity) as GameObject;
-        temporal.transform.SetParent(transform);
-        fichasActivas.Add(temporal);
-    }
+	private void ActualizarFlotante()
+	{
+		if (!Camera.main)
+			return;
 
-    private Vector3 centrar(int x, int y)
-    {
-        Vector3 origen = Vector3.zero;
-        origen.x += (tamanioFicha * x) + borde;
-        origen.y = 0.5f;
-        origen.z += (tamanioFicha * y) + borde;
-        return origen; 
-    }
 
-    private void iniciarTableroClasico()
-    {
-        fichasActivas = new List<GameObject>();
-        //fichas rojas
-        colocarFicha(0, centrar(0, 7));
-        colocarFicha(2, centrar(4, 7));
-        colocarFicha(1, centrar(5, 7));
-        colocarFicha(2, centrar(6, 7));
-        colocarFicha(3, centrar(7, 7));
-        colocarFicha(3, centrar(2, 6));
-        colocarFicha(3, centrar(0, 4));
-        colocarFicha(4, centrar(4, 4));
-        colocarFicha(4, centrar(5, 4));
-        colocarFicha(3, centrar(7, 4));
-        colocarFicha(3, centrar(0, 3));
-        colocarFicha(3, centrar(7, 3));
-        colocarFicha(3, centrar(6, 2));
+		RaycastHit hit;
+		if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 25.0f, LayerMask.GetMask("ChessPlane")))
+		{    
+			Xfloat = hit.point.x;          
+		}
+		else
+		{
+			Xfloat = -1;
+		}
+	}
 
-        //fichas blancas  
-        colocarFicha(8, centrar(3,0));
-        colocarFicha(7, centrar(4, 0));
-        colocarFicha(6, centrar(5, 0));
-        colocarFicha(7, centrar(6, 0));
-        colocarFicha(5, centrar(9, 0));
-        colocarFicha(8, centrar(7, 1));
-        colocarFicha(8, centrar(2, 3));
-        colocarFicha(8, centrar(9, 3));
-        colocarFicha(9, centrar(4, 3));
-        colocarFicha(9, centrar(5, 3));
-        colocarFicha(8, centrar(2, 4));
-        colocarFicha(8, centrar(9, 4));
-        colocarFicha(8, centrar(3, 5));
-    }
+	private void SeleccionarFicha(int x,int y){
+		if (fichas [x, y] == null) {
+			return;
+
+		}
+		/*if (fichas[x, y].esVerde != turnoJugadorVerde) {
+			return;
+		}*/
+	/*	if (turnoJugadorVerde &&(fichas[x, y].EsVerde)) {
+			FichaSeleccionada = fichas [x, y];
+		} else {
+			FichaSeleccionada = fichas [x, y];
+		}*/
+		FichaSeleccionada = fichas[x, y];
+
+	}
+
+	private void MoverFicha(int x,int y){
+		if (FichaSeleccionada.PosibleMovimiento(fichas,FichaSeleccionada.ActualX,
+			FichaSeleccionada.ActualY,x,y)) {
+			//bool p=PoderMover (x, y);
+			fichas [FichaSeleccionada.ActualX,
+				FichaSeleccionada.ActualY]=null;
+			FichaSeleccionada.transform.position = Centrar(x, y);
+			FichaSeleccionada.SetPosicion (x, y);
+			fichas [x, y] = FichaSeleccionada;
+			Movio = true;
+		}
+		FichaSeleccionada = null;
+	}
+
+	private void TerminoTurno(){
+	
+	
+	}
+
+
+
+
 }
