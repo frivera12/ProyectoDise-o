@@ -41,7 +41,7 @@ public class tableroLogico : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         revisarSeleccion();
-        dibujarTablero();
+        //dibujarTablero();
         if (Input.GetMouseButtonDown(0)) {
             if (xActual >= 0 && yActual >= 0) {
                 if (FichaSeleccionada == null) {
@@ -77,9 +77,8 @@ public class tableroLogico : MonoBehaviour {
         }
     }
 
-    private void ColocarFichas(int indice, int x, int y) {
-        GameObject go = Instantiate(PrefabsFichas[indice],
-            Centrar(x, y),/*Quaternion.identity*/orientacion) as GameObject;
+    private void colocarFichas(int indice, int x, int y) {
+        GameObject go = Instantiate(PrefabsFichas[indice], Centrar(x, y),/*Quaternion.identity*/orientacion) as GameObject;
         go.transform.SetParent(transform);
         fichas[x, y] = go.GetComponent<Ficha>();
         fichas[x, y].SetPosicion(x, y);
@@ -88,29 +87,117 @@ public class tableroLogico : MonoBehaviour {
 
     private Vector3 Centrar(int x, int y) {
         //funcion que da una posicion a las fichas
-        Vector3 origen = Vector2.zero;
+        Vector3 origen = Vector3.zero;
         origen.x += (tamanioFicha * x) + borde;
+        origen.y = 0.5f;
         origen.z += (tamanioFicha * y) + borde;
         return origen;
     }
+
+    //clasico
     public void GenerarNivel1() {
         FichasActivas = new List<GameObject>();
-        fichas = new Ficha[8, 10];
-        //piramide
-        ColocarFichas(0, 2, 3);
-        ColocarFichas(0, 1, 1);
-        //faraon
-        ColocarFichas(1, 3, 3);
+        fichas = new Ficha[10, 8];
+        //fichas rojas
+        colocarFichas(0, 0, 7);
+        colocarFichas(2, 4, 7);
+        colocarFichas(1, 5, 7);
+        colocarFichas(2, 6, 7);
+        colocarFichas(3, 7, 7);
+        colocarFichas(3, 2, 6);
+        colocarFichas(3, 0, 4);
+        colocarFichas(4, 4, 4);
+        colocarFichas(4, 5, 4);
+        colocarFichas(3, 7, 4);
+        colocarFichas(3, 0, 3);
+        colocarFichas(3, 7, 3);
+        colocarFichas(3, 6, 2);
+        //fichas blancas
+        colocarFichas(8, 2, 0);
+        colocarFichas(7, 3, 0);
+        colocarFichas(6, 4, 0);
+        colocarFichas(7, 5, 0);
+        colocarFichas(5, 9, 0);
+        colocarFichas(8, 7, 1);
+        colocarFichas(8, 2, 3);
+        colocarFichas(8, 9, 3);
+        colocarFichas(9, 4, 3);
+        colocarFichas(9, 5, 3);
+        colocarFichas(8, 2, 4);
+        colocarFichas(8, 9, 4);
+        colocarFichas(8, 3, 5);
 
     }
-    public void GenerarNivel2() {
+
+
+    //defensivo
+    public void GenerarNivel2()
+    {
         FichasActivas = new List<GameObject>();
-        fichas = new Ficha[8, 10];
+        fichas = new Ficha[10, 8];
+        //fichas rojas 
+        colocarFichas(0, 0, 7);
+        colocarFichas(2, 4, 7);
+        colocarFichas(1, 5, 7);
+        colocarFichas(2, 6, 7);
+        colocarFichas(4, 7, 7);
+        colocarFichas(3, 6, 5);
+        colocarFichas(3, 0, 4);
+        colocarFichas(4, 5, 4);
+        colocarFichas(3, 8, 4);
+        colocarFichas(3, 0, 3);
+        colocarFichas(3, 5, 3);
+        colocarFichas(3, 8, 3);
+        colocarFichas(3, 6, 2);
+        //fichas blancas
+        colocarFichas(9, 2, 0);
+        colocarFichas(7, 3, 0);
+        colocarFichas(6, 4, 0);
+        colocarFichas(7, 5, 0);
+        colocarFichas(5, 9, 0);
+        colocarFichas(8, 3, 2);
+        colocarFichas(8, 1, 3);
+        colocarFichas(8, 9, 3);
+        colocarFichas(8, 4, 4);
+        colocarFichas(9, 4, 3);
+        colocarFichas(8, 1, 4);
+        colocarFichas(8, 9, 4);
+        colocarFichas(8, 3, 5);
+
 
     }
+    
+    // ofensivo y defensivo
     public void GenerarNivel3() {
         FichasActivas = new List<GameObject>();
-        fichas = new Ficha[8, 10];
+        fichas = new Ficha[10, 8];
+        colocarFichas(0, 0, 7);
+        colocarFichas(3, 4, 7);
+        colocarFichas(2, 5, 7);
+        colocarFichas(3, 6, 7);
+        colocarFichas(1, 5, 6);
+        colocarFichas(3, 0, 5);
+        colocarFichas(3, 4, 5);
+        colocarFichas(2, 5, 5);
+        colocarFichas(4, 6, 5);
+        colocarFichas(3, 0, 4);
+        colocarFichas(4, 2, 4);
+        colocarFichas(3, 3, 3);
+        colocarFichas(3, 5, 3);
+        //fichas blancas
+        colocarFichas(8, 3, 0);
+        colocarFichas(7, 4, 0);
+        colocarFichas(8, 5, 0);
+        colocarFichas(5, 9, 0);
+        colocarFichas(6, 4, 1);
+        colocarFichas(9, 3, 2);
+        colocarFichas(7, 4, 2);
+        colocarFichas(8, 5, 2);
+        colocarFichas(8, 9, 2);
+        colocarFichas(9, 7, 3);
+        colocarFichas(8, 9, 3);
+        colocarFichas(8, 4, 4);
+        colocarFichas(8, 6, 4);
     }
 
 

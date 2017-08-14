@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Piramide : Ficha {
-	
+
 	// Use this for initialization
 	void Start () {
 		
