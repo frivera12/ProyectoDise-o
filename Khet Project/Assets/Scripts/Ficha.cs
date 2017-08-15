@@ -54,8 +54,8 @@ public class Ficha : MonoBehaviour {
 		ActualY = y;
 	}
     public bool swap(Ficha[,] fichas, bool turnoJugador, int x1, int y1, int x2, int y2)//valida y realiza el swap.
-    {
-        if (fichas[x1,y1].esVerde == fichas[x2, y2].esVerde && fichas[x1, y1].getTipo()==1 && (fichas[x2, y2].getTipo() == 2 || fichas[x2, y2].getTipo() == 3) )
+    {//valida si el jugador escogio 2 de sus piezas para el swap, y si el swap es entre escarabajo y piramide o escarabajo y torre.
+        if (fichas[x1,y1].esVerde == fichas[x2, y2].esVerde && fichas[x1, y1].getTipo()==4 && (fichas[x2, y2].getTipo() == 3 || fichas[x2, y2].getTipo() == 2) )
         {
             return true;
         }
