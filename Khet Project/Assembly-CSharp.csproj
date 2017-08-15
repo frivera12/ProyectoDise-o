@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Escarabajo.cs" />
+     <Compile Include="Assets\Scripts\Espejo.cs" />
      <Compile Include="Assets\Scripts\Faraon.cs" />
      <Compile Include="Assets\Scripts\Ficha.cs" />
      <Compile Include="Assets\Scripts\Generador.cs" />

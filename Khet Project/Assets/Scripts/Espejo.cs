@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Piramide : Ficha {
+public class Espejo : Ficha {
 
-
-    public Piramide()
+    public Espejo()
     {
-        this.tipo = 3;
+        this.tipo = 6;
     }
+
     // Use this for initialization
     void Start () {
 		

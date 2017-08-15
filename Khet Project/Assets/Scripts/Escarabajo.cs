@@ -4,8 +4,15 @@ using UnityEngine;
 
 public class Escarabajo : Ficha {
 
-	// Use this for initialization
-	void Start () {
+
+
+
+    public Escarabajo()
+    {
+        this.tipo = 4;
+    }
+    // Use this for initialization
+    void Start () {
 		
 	}
 	

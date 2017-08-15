@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class Generador : Ficha{
 
-	// Use this for initialization
-	void Start () {
+
+    public Generador()
+    {
+        this.tipo = 0;
+    }
+    // Use this for initialization
+    void Start () {
 		
 	}
 	

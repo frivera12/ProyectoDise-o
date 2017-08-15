@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class Torre : Ficha {
 
-	// Use this for initialization
-	void Start () {
+
+    public Torre()
+    {
+        this.tipo = 2;
+    }
+    // Use this for initialization
+    void Start () {
 		
 	}
 	

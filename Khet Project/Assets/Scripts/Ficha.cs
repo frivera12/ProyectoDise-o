@@ -7,7 +7,7 @@ public class Ficha : MonoBehaviour {
 	private int ActualX{ set; get;}
     private int ActualY{ set; get;}
 	public bool esVerde;
-
+    protected int tipo;
 
 
     ~Ficha()
@@ -15,8 +15,16 @@ public class Ficha : MonoBehaviour {
         Ficha ficha = this;
         ficha = null;
         
+        
     }
-		
+    public int getTipo()
+    {
+        return tipo;
+    }
+    public void setTipo(int t)
+    {
+        tipo = t;
+    }
     public int getActualX()
     {
         return ActualX;
@@ -47,7 +55,7 @@ public class Ficha : MonoBehaviour {
 	}
     public bool swap(Ficha[,] fichas, bool turnoJugador, int x1, int y1, int x2, int y2)//valida y realiza el swap.
     {
-        if (fichas[x1,y2].esVerde == fichas[x2, y2].esVerde)
+        if (fichas[x1,y1].esVerde == fichas[x2, y2].esVerde && fichas[x1, y1].getTipo()==1 && (fichas[x2, y2].getTipo() == 2 || fichas[x2, y2].getTipo() == 3) )
         {
             return true;
         }

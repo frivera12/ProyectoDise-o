@@ -4,8 +4,14 @@ using UnityEngine;
 
 public class Faraon : Ficha {
 
-	// Use this for initialization
-	void Start () {
+
+    public Faraon()
+    {
+        this.tipo = 1;
+    }
+
+    // Use this for initialization
+    void Start () {
 		
 	}
 	
