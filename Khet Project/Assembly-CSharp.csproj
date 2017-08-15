@@ -51,10 +51,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\Escarabajo.cs" />
      <Compile Include="Assets\Scripts\Faraon.cs" />
      <Compile Include="Assets\Scripts\Ficha.cs" />
+     <Compile Include="Assets\Scripts\Generador.cs" />
      <Compile Include="Assets\Scripts\Piramide.cs" />
      <Compile Include="Assets\Scripts\tableroLogico.cs" />
+     <Compile Include="Assets\Scripts\Torre.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

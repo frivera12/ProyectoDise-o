@@ -31,7 +31,7 @@ public class tableroLogico : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
-
+		turnoJugadorVerde = true;
         Roto = false;
         Movio = false;
         Laser = false;
@@ -271,9 +271,9 @@ public class tableroLogico : MonoBehaviour {
             return;
 
         }
-        /*if (fichas[x, y].esVerde != turnoJugadorVerde) {
+        if (fichas[x, y].esVerde != turnoJugadorVerde) {
 			return;
-		}*/
+		}
         /*	if (turnoJugadorVerde &&(fichas[x, y].EsVerde)) {
                 FichaSeleccionada = fichas [x, y];
             } else {
@@ -284,8 +284,10 @@ public class tableroLogico : MonoBehaviour {
     }
 
     private void MoverFicha(int x, int y) {
-        if (FichaSeleccionada.PosibleMovimiento(fichas, turnoJugadorVerde, FichaSeleccionada.getActualX(),
-            FichaSeleccionada.getActualY(), x, y)) {
+        if ((FichaSeleccionada.PosibleMovimiento(fichas, turnoJugadorVerde, FichaSeleccionada.getActualX(),
+			FichaSeleccionada.getActualY(), x, y))
+			&& FichaSeleccionada.CasillasExclusivas(fichas,FichaSeleccionada.getActualX(),
+				FichaSeleccionada.getActualY(), x, y)) {
             //bool p=PoderMover (x, y);
             fichas[FichaSeleccionada.getActualX(),
                 FichaSeleccionada.getActualY()] = null;
@@ -296,10 +298,11 @@ public class tableroLogico : MonoBehaviour {
             System.Console.WriteLine("probando");
         }
         FichaSeleccionada = null;
+		TerminoTurno ();
     }
 
     private void TerminoTurno() {
-        
+		turnoJugadorVerde = !turnoJugadorVerde;
 
     }
 
