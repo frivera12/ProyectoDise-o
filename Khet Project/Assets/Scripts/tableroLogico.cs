@@ -297,6 +297,15 @@ public class tableroLogico : MonoBehaviour {
             Movio = true;
             System.Console.WriteLine("probando");
         }
+        if (FichaSeleccionada.swap(fichas, turnoJugadorVerde, FichaSeleccionada.getActualX(),
+           FichaSeleccionada.getActualY(), x, y))
+        {
+            //  Ficha temporal = FichaSeleccionada;
+            fichas[FichaSeleccionada.getActualX(), FichaSeleccionada.getActualY()] = fichas[x, y];
+            fichas[x, y] = FichaSeleccionada;
+        }
+
+
         FichaSeleccionada = null;
 		TerminoTurno ();
     }

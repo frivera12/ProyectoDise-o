@@ -29,6 +29,14 @@ public class Ficha : MonoBehaviour {
     {
         ActualX = x;
     }
+    public bool getEsVerde()
+    {
+        return esVerde;
+    }
+    public void setEsVerde(bool esv)
+    {
+        esVerde = esv;
+    }
     public void setActualY(int y)
     {
         ActualY = y;
@@ -48,7 +56,8 @@ public class Ficha : MonoBehaviour {
 	public virtual bool PosibleMovimiento(Ficha[,]fichas, bool turnoJugador,int x1,int y1,int x2,int y2){//true si eligio una posicion valida para mover.  
         if (x2 >= 0 && y2 <= 8 && x2 <=10 && y2 >= 0)////arreglar
         {
-            if (Math.Abs(x1 - x2) == 1 || Math.Abs(y1 - y2) == 1 && fichas[x2, y2] == null)
+            if (Math.Abs(x2 - x1) <= 1 && Math.Abs(y2 - y1) <= 1
+                 && fichas[x2, y2] == null)
             {
                 return true;
             }
