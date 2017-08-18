@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4459749, g: 0.49572486, b: 0.5744295, a: 1}
+  m_IndirectSpecularColor: {r: 0.445975, g: 0.49572498, b: 0.5744295, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -350,6 +350,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1741324324}
   - component: {fileID: 1741324325}
+  - component: {fileID: 1741324326}
   m_Layer: 0
   m_Name: Pos(0,0)
   m_TagString: Untagged
@@ -393,3 +394,18 @@ MonoBehaviour:
   - {fileID: 1486577197878132, guid: 9eac1f877a9874c478aed9d530e2e264, type: 2}
   - {fileID: 1343372707747910, guid: caaf75d525f8466458ab2034c9e97d64, type: 2}
   - {fileID: 1940480075489288, guid: 922ca3addb36dd84e9fa7f9161fd3f0f, type: 2}
+--- !u!114 &1741324326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1741324323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dd7549b1b7623b4e8d5ea1e33f11c43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  turnoJugadorVerde: 0
+  Movio: 0
+  Roto: 0
+  Laser: 0

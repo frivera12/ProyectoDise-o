@@ -1,9 +1,12 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Ficha.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\tableroLogico.cs">
     <Files>
-      <File FileName="Assets\Scripts\tableroLogico.cs" Line="301" Column="3" />
-      <File FileName="Assets\Scripts\Ficha.cs" Line="67" Column="31" />
+      <File FileName="Assets\Scripts\tableroLogico.cs" Line="80" Column="31" />
+      <File FileName="Assets\Scripts\logica.cs" Line="23" Column="38" />
+      <File FileName="Assets\Scripts\Escarabajo.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Espejo.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Generador.cs" Line="19" Column="3" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

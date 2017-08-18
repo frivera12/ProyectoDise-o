@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class tableroLogico : MonoBehaviour {
-
+	private logica ScriptLogica;
     //tamano del tablero
     private const float tamanioFicha = 1.0f;
     private const float borde = 0.5f;
@@ -16,10 +16,7 @@ public class tableroLogico : MonoBehaviour {
     private Ficha FichaSeleccionada;
 
     //posible manejo de turnos
-    private bool turnoJugadorVerde;
-    private bool Movio;
-    private bool Roto;
-    private bool Laser;
+   
 
     //posicion para rotar
     private float Xfloat = -1.0f;
@@ -31,11 +28,19 @@ public class tableroLogico : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
-		turnoJugadorVerde = true;
-        Roto = false;
-        Movio = false;
-        Laser = false;
+		ScriptLogica = this.GetComponent<logica> ();
+		ScriptLogica.turnoJugadorVerde = true;
+		ScriptLogica.Roto = false;
+		ScriptLogica.Movio = false;
+		ScriptLogica.Laser = false;
         GenerarNivel1();
+		/*for (int i = 0; i < 10; i++) {
+			for (int j = 0; j < 8; j++) {
+				if (fichas [i, j] != null) {
+					Debug.Log ("tiene" + fichas [i, j].getTipo ());
+				}
+			}
+		}*/
     }
 
     // Update is called once per frame
@@ -44,47 +49,59 @@ public class tableroLogico : MonoBehaviour {
         //dibujarTablero();
         if (Input.GetMouseButtonDown(0)) {
             if (xActual >= 0 && yActual >= 0) {
-                if (FichaSeleccionada == null) {
-                    //seleccionar
-                    SeleccionarFicha(xActual, yActual);
-                } else {
+				if (FichaSeleccionada == null) {
+					//seleccionar
+					SeleccionarFicha (xActual, yActual);
+				} else if (FichaSeleccionada != null && FichaSeleccionada.getTipo () == 0) {
+					ScriptLogica.Laser = true;
+					Debug.Log("ejecuto laser");
+					ScriptLogica.TerminoTurno ();
+					FichaSeleccionada = null;
+				}
+				else {
                     //mover
-                    MoverFicha(xActual, yActual);
+					if (ScriptLogica.Movio == false) {
+						MoverFicha (xActual, yActual);
+					}
+					FichaSeleccionada = null;
                 }
             }
-        }
-        if (Input.GetMouseButtonDown(1)) {
+        }else if (Input.GetMouseButtonDown(1)) {
+			
             if (xActual >= 0 && yActual >= 0) {
                 if (FichaSeleccionada == null) {
+
                     SeleccionarFicha(xActual, yActual);
                 } else {
-                    ActualizarFlotante();
-
-                    if (Xfloat > (0.50f + FichaSeleccionada.getActualX()) && Xfloat < (1.0f + FichaSeleccionada.getActualX())
-                        && yActual == FichaSeleccionada.getActualY()) {
-                        FichaSeleccionada.transform.Rotate(0.0f, transform.rotation.y + 90, 0.0f);
-                        //Debug.Log("roto derecha");
-                    }
-                    else if (Xfloat < (0.50f + FichaSeleccionada.getActualX()) && Xfloat > FichaSeleccionada.getActualX()
-                        && yActual == FichaSeleccionada.getActualY())
-                    {
-                        FichaSeleccionada.transform.Rotate(0.0f, transform.rotation.y - 90, 0.0f);
-                        //Debug.Log("roto izquierda");
-                    }
-                    Roto = true;
+					if (ScriptLogica.Roto == false) {
+						Rotar ();
+						ScriptLogica.Roto = true;
+					}
+					FichaSeleccionada = null;
                 }
             }
         }
     }
+	private void Rotar(){
+		ActualizarFlotante ();
+		if (Xfloat > (0.50f + FichaSeleccionada.getActualX ()) && Xfloat < (1.0f + FichaSeleccionada.getActualX ())
+			&& yActual == FichaSeleccionada.getActualY ()) {
+			FichaSeleccionada.transform.Rotate (0.0f, transform.rotation.y + 90, 0.0f);
+		} else if (Xfloat < (0.50f + FichaSeleccionada.getActualX ()) && Xfloat > FichaSeleccionada.getActualX ()
+			&& yActual == FichaSeleccionada.getActualY ()) {
+			FichaSeleccionada.transform.Rotate (0.0f, transform.rotation.y - 90, 0.0f);
+		}
+	}
 
     private void colocarFichas(int indice, int x, int y) {
-        GameObject go = Instantiate(PrefabsFichas[indice], Centrar(x, y),/*Quaternion.identity*/orientacion) as GameObject;
+		Vector3 p = ScriptLogica.Centrar (x, y);
+        GameObject go = Instantiate(PrefabsFichas[indice], p,/*Quaternion.identity*/orientacion) as GameObject;
         go.transform.SetParent(transform);
         fichas[x, y] = go.GetComponent<Ficha>();
         fichas[x, y].SetPosicion(x, y);
         FichasActivas.Add(go);
     }
-
+	/*
     private Vector3 Centrar(int x, int y) {
         //funcion que da una posicion a las fichas
         Vector3 origen = Vector3.zero;
@@ -92,7 +109,7 @@ public class tableroLogico : MonoBehaviour {
         origen.y = 0.5f;
         origen.z += (tamanioFicha * y) + borde;
         return origen;
-    }
+    }*/
 
     //clasico
     public void GenerarNivel1() {
@@ -201,7 +218,7 @@ public class tableroLogico : MonoBehaviour {
     }
 
 
-
+	/*
     private void dibujarTablero()
     {
         Vector3 rayaAncho = Vector3.right * 10;
@@ -229,7 +246,7 @@ public class tableroLogico : MonoBehaviour {
                 Vector3.forward * yActual + Vector3.right * (xActual + 1));
         }
     }
-
+*/
     private void revisarSeleccion()
     {
         if (!Camera.main)
@@ -256,7 +273,7 @@ public class tableroLogico : MonoBehaviour {
 
 
         RaycastHit hit;
-        if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 25.0f, LayerMask.GetMask("ChessPlane")))
+        if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 25.0f, LayerMask.GetMask("tablero")))
         {
             Xfloat = hit.point.x;
         }
@@ -271,7 +288,7 @@ public class tableroLogico : MonoBehaviour {
             return;
 
         }
-        if (fichas[x, y].esVerde != turnoJugadorVerde) {
+		if (fichas[x, y].esVerde != ScriptLogica.turnoJugadorVerde) {
 			return;
 		}
         /*	if (turnoJugadorVerde &&(fichas[x, y].EsVerde)) {
@@ -284,20 +301,20 @@ public class tableroLogico : MonoBehaviour {
     }
 
     private void MoverFicha(int x, int y) {
-        if ((FichaSeleccionada.PosibleMovimiento(fichas, turnoJugadorVerde, FichaSeleccionada.getActualX(),
+		if ((FichaSeleccionada.PosibleMovimiento(fichas, ScriptLogica.turnoJugadorVerde, FichaSeleccionada.getActualX(),
 			FichaSeleccionada.getActualY(), x, y))
 			&& FichaSeleccionada.CasillasExclusivas(fichas,FichaSeleccionada.getActualX(),
 				FichaSeleccionada.getActualY(), x, y)) {
             //bool p=PoderMover (x, y);
             fichas[FichaSeleccionada.getActualX(),
                 FichaSeleccionada.getActualY()] = null;
-            FichaSeleccionada.transform.position = Centrar(x, y);
+			FichaSeleccionada.transform.position = ScriptLogica.Centrar(x, y);
             FichaSeleccionada.SetPosicion(x, y);
             fichas[x, y] = FichaSeleccionada;
-            Movio = true;
+			ScriptLogica.Movio = true;
             System.Console.WriteLine("probando");
         }
-        if (FichaSeleccionada.swap(fichas, turnoJugadorVerde, FichaSeleccionada.getActualX(),
+		if (FichaSeleccionada.swap(fichas,  ScriptLogica.turnoJugadorVerde, FichaSeleccionada.getActualX(),
            FichaSeleccionada.getActualY(), x, y))
         {
             //  Ficha temporal = FichaSeleccionada;
@@ -307,13 +324,10 @@ public class tableroLogico : MonoBehaviour {
 
 
         FichaSeleccionada = null;
-		TerminoTurno ();
+		ScriptLogica.TerminoTurno ();
     }
 
-    private void TerminoTurno() {
-		turnoJugadorVerde = !turnoJugadorVerde;
-
-    }
+   
 
  
 
