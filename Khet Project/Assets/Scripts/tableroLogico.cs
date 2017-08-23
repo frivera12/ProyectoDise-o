@@ -1,9 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class tableroLogico : MonoBehaviour {
 	private logica ScriptLogica;
+	public GameObject menu;
     //tamano del tablero
     private const float tamanioFicha = 1.0f;
     private const float borde = 0.5f;
@@ -47,40 +50,50 @@ public class tableroLogico : MonoBehaviour {
     void Update() {
         revisarSeleccion();
         //dibujarTablero();
-        if (Input.GetMouseButtonDown(0)) {
-            if (xActual >= 0 && yActual >= 0) {
+		if (Input.GetMouseButtonDown (0)) {
+			if (xActual >= 0 && yActual >= 0) {
 				if (FichaSeleccionada == null) {
 					//seleccionar
 					SeleccionarFicha (xActual, yActual);
 				} else if (FichaSeleccionada != null && FichaSeleccionada.getTipo () == 0) {
 					ScriptLogica.Laser = true;
-					Debug.Log("ejecuto laser");
+					Debug.Log ("ejecuto laser");
 					ScriptLogica.TerminoTurno ();
 					FichaSeleccionada = null;
-				}
-				else {
-                    //mover
+				} else {
+					//mover
 					if (ScriptLogica.Movio == false) {
 						MoverFicha (xActual, yActual);
 					}
 					FichaSeleccionada = null;
-                }
-            }
-        }else if (Input.GetMouseButtonDown(1)) {
-			
-            if (xActual >= 0 && yActual >= 0) {
-                if (FichaSeleccionada == null) {
+				}
+			}
+		}//else if (Input.GetMouseButtonDown(1))  {
+			/*if (xActual >= 0 && yActual >= 0) {
+				if (FichaSeleccionada == null) {
 
-                    SeleccionarFicha(xActual, yActual);
-                } else {
-					if (ScriptLogica.Roto == false) {
-						Rotar ();
-						ScriptLogica.Roto = true;
+					SeleccionarFicha (xActual, yActual);
+				} else {*/
+					//SceneManager.LoadScene ("Rotar");
+					else if (FichaSeleccionada != null) {
+						if (ScriptLogica.Roto == false) {
+							//Rotar ();
+							if (Input.GetKey (KeyCode.A)) {
+								Debug.Log ("presiono A");
+							} else if (Input.GetKey (KeyCode.S)) {
+								Debug.Log ("presiono S");
+							} else if (Input.GetKey (KeyCode.D)) {
+								Debug.Log ("presiono D");
+							} else if (Input.GetKey (KeyCode.W)) {
+								Debug.Log ("presiono W");
+							}
+							//ScriptLogica.Roto = true;
+						}
+						FichaSeleccionada = null;
 					}
-					FichaSeleccionada = null;
-                }
-            }
-        }
+					
+				//}
+			
     }
 	private void Rotar(){
 		ActualizarFlotante ();

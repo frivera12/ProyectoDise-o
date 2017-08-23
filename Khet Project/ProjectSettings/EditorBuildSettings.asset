@@ -4,4 +4,10 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Game.unity
+    guid: c34efd741c4f62b4eb015c1847e678ee
+  - enabled: 1
+    path: Assets/Rotar.unity
+    guid: bc71dc02f3f6e984b94ace7019f7e88b
