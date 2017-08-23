@@ -11,8 +11,12 @@ public class tableroLogico : MonoBehaviour {
     private const float tamanioFicha = 1.0f;
     private const float borde = 0.5f;
     //posiciones de las fichas
+	public Vector2 mouseOver;
+	public Vector2 startDrag;
+	public Vector2 endDrag;
     private int xActual = -1;
     private int yActual = -1;
+	private GameObject objectoHijo;
 
     public Ficha[,] fichas { set; get; }
 
@@ -31,12 +35,15 @@ public class tableroLogico : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
+		objectoHijo = Instantiate (menu) as GameObject;
+		objectoHijo.SetActive (false);
 		ScriptLogica = this.GetComponent<logica> ();
 		ScriptLogica.turnoJugadorVerde = true;
 		ScriptLogica.Roto = false;
 		ScriptLogica.Movio = false;
 		ScriptLogica.Laser = false;
         GenerarNivel1();
+		menu.SetActive(false);
 		/*for (int i = 0; i < 10; i++) {
 			for (int j = 0; j < 8; j++) {
 				if (fichas [i, j] != null) {
@@ -45,12 +52,39 @@ public class tableroLogico : MonoBehaviour {
 			}
 		}*/
     }
-
+	public void TocoRotar1(){
+		Debug.Log ("roto1");
+	}
+	public void TocoRotar2(){
+		Debug.Log ("roto2");
+	}
     // Update is called once per frame
     void Update() {
         revisarSeleccion();
         //dibujarTablero();
+		//menu.SetActive(false);
+		int x = (int)mouseOver.x;
+		int y = (int)mouseOver.y;
+		if (FichaSeleccionada != null) {
+			ActualizarDrag (FichaSeleccionada);
+		}
+		if (FichaSeleccionada != null && FichaSeleccionada.getTipo () == 0) {
+			ScriptLogica.Laser = true;
+			Debug.Log ("ejecuto laser");
+			ScriptLogica.TerminoTurno ();
+			FichaSeleccionada = null;
+		}
 		if (Input.GetMouseButtonDown (0)) {
+			if (x >= 0 && y >= 0) {
+				SeleccionarFicha(x, y);
+			}
+		}
+		if (Input.GetMouseButtonUp (0)) {
+			if (x >= 0 && y >= 0) {
+				TratarMover((int)startDrag.x, (int)startDrag.y, x, y);
+			}
+			}
+		/*if (Input.GetMouseButtonDown (0)) {
 			if (xActual >= 0 && yActual >= 0) {
 				if (FichaSeleccionada == null) {
 					//seleccionar
@@ -60,6 +94,7 @@ public class tableroLogico : MonoBehaviour {
 					Debug.Log ("ejecuto laser");
 					ScriptLogica.TerminoTurno ();
 					FichaSeleccionada = null;
+					//menu.SetActive (true);
 				} else {
 					//mover
 					if (ScriptLogica.Movio == false) {
@@ -68,14 +103,26 @@ public class tableroLogico : MonoBehaviour {
 					FichaSeleccionada = null;
 				}
 			}
-		}//else if (Input.GetMouseButtonDown(1))  {
-			/*if (xActual >= 0 && yActual >= 0) {
+		} else if (Input.GetMouseButtonDown (1)) {
+			if (xActual >= 0 && yActual >= 0) {
 				if (FichaSeleccionada == null) {
 
 					SeleccionarFicha (xActual, yActual);
-				} else {*/
+				} else {
 					//SceneManager.LoadScene ("Rotar");
-					else if (FichaSeleccionada != null) {
+					//menu.SetActive (true);
+
+					if (objectoHijo.transform.parent == null) {
+						
+						objectoHijo.transform.parent = FichaSeleccionada.transform;
+						objectoHijo.transform.position =new Vector3(0, 0, 0) ;
+						objectoHijo.SetActive (true);
+					
+						Debug.Log (objectoHijo.transform.position.x);
+						Debug.Log (objectoHijo.transform.position.y);
+						Debug.Log (objectoHijo.transform.position.z);
+					}
+					if (FichaSeleccionada != null) {
 						if (ScriptLogica.Roto == false) {
 							//Rotar ();
 							if (Input.GetKey (KeyCode.A)) {
@@ -92,9 +139,22 @@ public class tableroLogico : MonoBehaviour {
 						FichaSeleccionada = null;
 					}
 					
-				//}
+				}
+			}
+		}*/
 			
     }
+	private void ActualizarDrag(Ficha p){
+		if(!Camera.main){
+			Debug.Log ("Unable to find");
+			return;
+
+		}
+		RaycastHit hit;
+		if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 25.0f, LayerMask.GetMask("tablero"))) {
+			p.transform.position = hit.point + Vector3.up;
+		} 
+	}
 	private void Rotar(){
 		ActualizarFlotante ();
 		if (Xfloat > (0.50f + FichaSeleccionada.getActualX ()) && Xfloat < (1.0f + FichaSeleccionada.getActualX ())
@@ -269,11 +329,16 @@ public class tableroLogico : MonoBehaviour {
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 25.0f, LayerMask.GetMask("tablero")))
         {
+			mouseOver.x = (int)(hit.point.x - borde);
+			mouseOver.y = (int)(hit.point.z - borde);
+
             xActual = (int)hit.point.x;
             yActual = (int)hit.point.z;
         }
         else
         {
+			mouseOver.x = -1;
+			mouseOver.y = -1;
             xActual = -1;
             yActual = -1;
         }
@@ -301,19 +366,53 @@ public class tableroLogico : MonoBehaviour {
             return;
 
         }
-		if (fichas[x, y].esVerde != ScriptLogica.turnoJugadorVerde) {
+		Ficha p = fichas [x, y];
+		if (p == null && fichas [x, y].esVerde != ScriptLogica.turnoJugadorVerde) {
 			return;
+		} else {
+			FichaSeleccionada = p;
+			startDrag = mouseOver;
 		}
         /*	if (turnoJugadorVerde &&(fichas[x, y].EsVerde)) {
                 FichaSeleccionada = fichas [x, y];
             } else {
                 FichaSeleccionada = fichas [x, y];
             }*/
-        FichaSeleccionada = fichas[x, y];
+		//startDrag = mouseOver;
+        //FichaSeleccionada = fichas[x, y];
 
     }
 
-    private void MoverFicha(int x, int y) {
+	private void TratarMover(int x1,int y1,int x2,int y2){
+		startDrag = new Vector2 (x1, y1);
+		endDrag = new Vector2 (x2, y2);
+		FichaSeleccionada = fichas [x1, y1];
+		//Debug.Log (x1 + " " + y1);
+		//Debug.Log (x2 + " " + y2);
+		if(x2<0 || x2 >= 8 || y2 <0 || y2 >= 10){
+			if (FichaSeleccionada != null) {
+				Debug.Log ("movio2");
+				MoverFicha (x1,y1);
+			}
+			startDrag = Vector2.zero;
+			//SelectPiece = null;
+			FichaSeleccionada=null;
+			return;
+		}
+		if (FichaSeleccionada != null) {
+			if (endDrag == startDrag) {
+				Debug.Log (x1 + " " + y1);
+				MoverFicha (x1, y1);
+				Debug.Log ("movio3");
+				startDrag = Vector2.zero;
+				FichaSeleccionada = null;
+				return;
+			}
+	}
+	}
+
+	private void MoverFicha(int x,int y) {
+		Debug.Log (FichaSeleccionada.getActualX()+" "+FichaSeleccionada.getActualY());
 		if ((FichaSeleccionada.PosibleMovimiento(fichas, ScriptLogica.turnoJugadorVerde, FichaSeleccionada.getActualX(),
 			FichaSeleccionada.getActualY(), x, y))
 			&& FichaSeleccionada.CasillasExclusivas(fichas,FichaSeleccionada.getActualX(),
@@ -326,6 +425,7 @@ public class tableroLogico : MonoBehaviour {
             fichas[x, y] = FichaSeleccionada;
 			ScriptLogica.Movio = true;
             System.Console.WriteLine("probando");
+			Debug.Log ("movio");
         }
 		if (FichaSeleccionada.swap(fichas,  ScriptLogica.turnoJugadorVerde, FichaSeleccionada.getActualX(),
            FichaSeleccionada.getActualY(), x, y))
