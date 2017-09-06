@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{C4FA2BFD-B5C0-4355-FB58-C7901760C607}</ProjectGuid>
+    <ProjectGuid>{DDB233CD-A3E6-EA1A-2E14-2EAAEB6779CE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -52,15 +52,19 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Escarabajo.cs" />
-     <Compile Include="Assets\Scripts\Espejo.cs" />
      <Compile Include="Assets\Scripts\Faraon.cs" />
-     <Compile Include="Assets\Scripts\Ficha.cs" />
+     <Compile Include="Assets\Scripts\FichaGrafica.cs" />
+     <Compile Include="Assets\Scripts\FichaLogica.cs" />
      <Compile Include="Assets\Scripts\Generador.cs" />
-     <Compile Include="Assets\Scripts\logica.cs" />
-     <Compile Include="Assets\Scripts\MenuRotar.cs" />
+     <Compile Include="Assets\Scripts\Grafica.cs" />
+     <Compile Include="Assets\Scripts\khetapp.cs" />
+     <Compile Include="Assets\Scripts\Logica.cs" />
+     <Compile Include="Assets\Scripts\Manager.cs" />
      <Compile Include="Assets\Scripts\Piramide.cs" />
-     <Compile Include="Assets\Scripts\tableroLogico.cs" />
+     <Compile Include="Assets\Scripts\TableroGrafico.cs" />
+     <Compile Include="Assets\Scripts\TableroLogico.cs" />
      <Compile Include="Assets\Scripts\Torre.cs" />
+     <Compile Include="Assets\Scripts\Validaciones.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

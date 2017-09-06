@@ -2,36 +2,48 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class logica : MonoBehaviour {
-	private const float tamanioFicha = 1.0f;
-	private const float borde = 0.5f;
-	public bool turnoJugadorVerde;
-	public bool Movio;
-	public bool Roto;
-	public bool Laser;
-	public Vector3 Centrar(int x, int y) {
-		//funcion que da una posicion a las fichas
-		Vector3 origen = Vector3.zero;
-		origen.x += (tamanioFicha * x) + borde;
-		origen.y = 0.5f;
-		origen.z += (tamanioFicha * y) + borde;
-		return origen;
-	}
+public class Logica : khetappAsistente
+{
 
-	public void TerminoTurno() {
-		if (Laser == true) {
-			Debug.Log ("entro a laser turno");
-			turnoJugadorVerde = !turnoJugadorVerde;
-			Movio = false;
-			Roto = false;
-			Laser = false;
-		}
+    private TableroLogico tablerologico;//tablero logico
+    private Validaciones validaciones;//instancia para as validaciones.
 
-	}
-	// Use this for initialization
-	void Start () {
-		
-	}
+    
+
+    public TableroLogico getTablerologico()
+    {
+        return tablerologico;
+    }
+    public void setTablerologico(TableroLogico tab)
+    {
+        tablerologico=tab;
+    }
+    public Validaciones getValidaciones()
+    {
+        return validaciones;
+    }
+    public void setValidaciones(Validaciones val)
+    {
+        validaciones = val;
+    }
+
+    public void actualizarEstadoFichas(List<GameObject> fichasgraficasactivas)
+    {
+       // fichasgraficasactivas[1,1]= null;
+    }
+
+    void Awake()
+    {
+       // tablerologico = GetComponent<TableroLogico>();
+        //validaciones= GetComponent<Validaciones>();
+    }
+    // Use this for initialization
+    void Start(){
+        
+        //tablerologico.GenerarNivel1();
+        
+            
+    }
 	
 	// Update is called once per frame
 	void Update () {
