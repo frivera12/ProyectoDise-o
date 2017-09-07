@@ -80,11 +80,18 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Escarabajo.cs" />
     <Compile Include="Assets\Scripts\Faraon.cs" />
-    <Compile Include="Assets\Scripts\Ficha.cs" />
+    <Compile Include="Assets\Scripts\FichaGrafica.cs" />
+    <Compile Include="Assets\Scripts\FichaLogica.cs" />
     <Compile Include="Assets\Scripts\Generador.cs" />
+    <Compile Include="Assets\Scripts\Grafica.cs" />
+    <Compile Include="Assets\Scripts\khetapp.cs" />
+    <Compile Include="Assets\Scripts\Logica.cs" />
+    <Compile Include="Assets\Scripts\Manager.cs" />
     <Compile Include="Assets\Scripts\Piramide.cs" />
+    <Compile Include="Assets\Scripts\TableroGrafico.cs" />
     <Compile Include="Assets\Scripts\tableroLogico.cs" />
     <Compile Include="Assets\Scripts\Torre.cs" />
+    <Compile Include="Assets\Scripts\Validaciones.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

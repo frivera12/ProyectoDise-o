@@ -5,7 +5,7 @@ using UnityEngine;
 public class Piramide : FichaLogica
 {
 
-
+    /*
     public Piramide(int numjug)
     {
         this.tipo = 3;
@@ -25,10 +25,9 @@ public class Piramide : FichaLogica
         this.ActualX = x;
         this.ActualY = y;
         this.indiceprefab = pindiceprefab;
-    }
+    }*/
     public Piramide(int protacion, int pindiceprefab, int numjug, int x, int y)
     {
-        this.tipo = 4;
         this.jugador = numjug;
         this.ActualX = x;
         this.ActualY = y;

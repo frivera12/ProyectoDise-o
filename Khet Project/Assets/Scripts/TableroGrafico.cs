@@ -10,9 +10,9 @@ public class TableroGrafico : MonoBehaviour {
     private int xActual = -1;
     private int yActual = -1;
 
-    public TableroLogico tablerologico;
+    private TableroLogico tablerologico;
     private FichaGrafica[,] fichasgraficasactivas { set; get; }
-
+    private ArrayList FichasGraficas;  
     private FichaGrafica FichaSeleccionada;
 
     //posible manejo de turnos
@@ -39,14 +39,23 @@ public class TableroGrafico : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-
-        tablerologico = new TableroLogico();
-
-
-        
-
+        FichasGraficas = new ArrayList();
+        khetappAsistente.getkhetapp.logica.getTablerologico().GenerarNivel1();
+        setFichasTablero();
     }
 
+    public void setFichasTablero()
+    {
+        ArrayList listaFichasAux = khetappAsistente.getkhetapp.logica.getTablerologico().getFichasActivas();
+        FichaLogica logica; 
+        
+        for (int i = 0; i <listaFichasAux.Count; i++)
+        {
+            logica = (FichaLogica)listaFichasAux[i];
+            Debug.Log("tipo" + logica.getIndicePrefab() +"x: "+logica.getActualX()+ " y"+ logica.getActualY());
+            colocarFichas(logica.getIndicePrefab(), logica.getActualX(), logica.getActualY());    
+        }
+    }
     // Update is called once per frame
     void Update()
     {

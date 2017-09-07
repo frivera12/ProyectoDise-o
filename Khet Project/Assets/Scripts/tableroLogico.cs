@@ -10,9 +10,9 @@ public class TableroLogico {
     public ArrayList fichaslogicasactivas=new ArrayList();
 
 
-    TableroLogico()
+    public TableroLogico()
     {
-
+        Debug.Log("limones");
     }
     void Awake()
     {
@@ -43,12 +43,12 @@ public class TableroLogico {
     public void GenerarNivel1() {//jugador 1 rojas
         matrizlogicafichas = new FichaLogica[10, 8];
 
-        FichaLogica faraonR = new Faraon(0,1,1, 5, 7); fichaslogicasactivas.Add(faraonR);
-        FichaLogica faraonB = new Faraon(0,6,2,4,0); fichaslogicasactivas.Add(faraonB);
+        FichaLogica faraonR = new Faraon(0, 1, 1, 5, 7); fichaslogicasactivas.Add(faraonR);
+        FichaLogica faraonB = new Faraon(0, 6, 2, 4, 0); fichaslogicasactivas.Add(faraonB);
 
         //piramides rojas
-        FichaLogica piramideR1 = new Piramide(0, 3,1, 7, 7); fichaslogicasactivas.Add(piramideR1);
-        FichaLogica piramideR2 = new Piramide(0,3, 1, 2, 6); fichaslogicasactivas.Add(piramideR2);
+        FichaLogica piramideR1 = new Piramide(0, 3, 1, 7, 7); fichaslogicasactivas.Add(piramideR1);
+        FichaLogica piramideR2 = new Piramide(0, 3, 1, 2, 6); fichaslogicasactivas.Add(piramideR2);
         FichaLogica piramideR3 = new Piramide(0, 3, 1, 0, 4); fichaslogicasactivas.Add(piramideR3);
         FichaLogica piramideR4 = new Piramide(0, 3, 1, 7, 4); fichaslogicasactivas.Add(piramideR4);
         FichaLogica piramideR5 = new Piramide(0, 3, 1, 0, 3); fichaslogicasactivas.Add(piramideR5);
@@ -56,7 +56,7 @@ public class TableroLogico {
         FichaLogica piramideR7 = new Piramide(0, 3, 1, 6, 2); fichaslogicasactivas.Add(piramideR7);
 
         //piramides blancas
-        FichaLogica piramideB1 = new Piramide(0, 8,2, 7, 1); fichaslogicasactivas.Add(piramideB1);
+        FichaLogica piramideB1 = new Piramide(0, 8, 2, 7, 1); fichaslogicasactivas.Add(piramideB1);
         FichaLogica piramideB2 = new Piramide(0, 8, 2, 2, 3); fichaslogicasactivas.Add(piramideB2);
         FichaLogica piramideB3 = new Piramide(0, 8, 2, 9, 3); fichaslogicasactivas.Add(piramideB3);
         FichaLogica piramideB4 = new Piramide(0, 8, 2, 2, 4); fichaslogicasactivas.Add(piramideB4);
@@ -64,21 +64,21 @@ public class TableroLogico {
         FichaLogica piramideB6 = new Piramide(0, 8, 2, 3, 5); fichaslogicasactivas.Add(piramideB6);
         FichaLogica piramideB7 = new Piramide(0, 8, 2, 2, 0); fichaslogicasactivas.Add(piramideB7);
         //Generador Rojo
-        FichaLogica generadorR = new Generador(0,0, 1,0,7); fichaslogicasactivas.Add(generadorR);
+        FichaLogica generadorR = new Generador(0, 0, 1, 0, 7); fichaslogicasactivas.Add(generadorR);
         //Generador Blanco
-        FichaLogica generadorB = new Generador(0, 0,2,9,0); fichaslogicasactivas.Add(generadorB);
+        FichaLogica generadorB = new Generador(0, 0, 2, 9, 0); fichaslogicasactivas.Add(generadorB);
         //Escarabajo Rojo
-        FichaLogica escarabajoR1 = new Escarabajo(0,4,1,4,4); fichaslogicasactivas.Add(escarabajoR1);
-        FichaLogica escarabajoR2 = new Escarabajo(0, 4,1, 5,4); fichaslogicasactivas.Add(escarabajoR2);
+        FichaLogica escarabajoR1 = new Escarabajo(0, 4, 1, 4, 4); fichaslogicasactivas.Add(escarabajoR1);
+        FichaLogica escarabajoR2 = new Escarabajo(0, 4, 1, 5, 4); fichaslogicasactivas.Add(escarabajoR2);
         //Escarabajo Blanco
-        FichaLogica escarabajoB1 = new Escarabajo(0, 9,2, 4,3); fichaslogicasactivas.Add(escarabajoB1);
-        FichaLogica escarabajoB2 = new Escarabajo(0, 9,2, 5,3); fichaslogicasactivas.Add(escarabajoB2);
+        FichaLogica escarabajoB1 = new Escarabajo(0, 9, 2, 4, 3); fichaslogicasactivas.Add(escarabajoB1);
+        FichaLogica escarabajoB2 = new Escarabajo(0, 9, 2, 5, 3); fichaslogicasactivas.Add(escarabajoB2);
         //Torre Roja
-        FichaLogica torreR1 = new Torre(0, 2,1,4,7); fichaslogicasactivas.Add(torreR1);
-        FichaLogica torreR2 = new Torre(0, 2,1, 6,7); fichaslogicasactivas.Add(torreR2);
+        FichaLogica torreR1 = new Torre(0, 2, 1, 4, 7); fichaslogicasactivas.Add(torreR1);
+        FichaLogica torreR2 = new Torre(0, 2, 1, 6, 7); fichaslogicasactivas.Add(torreR2);
         //Torre Blanca
-        FichaLogica torreB1 = new Torre(0, 7,2,3,0); fichaslogicasactivas.Add(torreB1);
-        FichaLogica torreB2 = new Torre(0, 7,2, 5,0); fichaslogicasactivas.Add(torreB2);
+        FichaLogica torreB1 = new Torre(0, 7, 2, 3, 0); fichaslogicasactivas.Add(torreB1);
+        FichaLogica torreB2 = new Torre(0, 7, 2, 5, 0); fichaslogicasactivas.Add(torreB2);
 
 
 
