@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Faraon : FichaLogica
+public class Faraon : FichaLogica//FichaLogica
 {
 
 

@@ -22,7 +22,6 @@ GameObject:
   - component: {fileID: 33143120333182580}
   - component: {fileID: 65747725263851422}
   - component: {fileID: 23591105551815708}
-  - component: {fileID: 114898515406604864}
   m_Layer: 0
   m_Name: piramideB
   m_TagString: Untagged
@@ -94,15 +93,3 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114898515406604864
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1343372707747910}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fcbc58f01166d4f4aad4efaa4b5f1b8e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  esVerde: 1

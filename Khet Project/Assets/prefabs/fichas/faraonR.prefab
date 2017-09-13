@@ -22,7 +22,6 @@ GameObject:
   - component: {fileID: 33270623136701274}
   - component: {fileID: 136803866211810290}
   - component: {fileID: 23967077202303674}
-  - component: {fileID: 114244020657574826}
   m_Layer: 0
   m_Name: faraonR
   m_TagString: Untagged
@@ -82,17 +81,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1944811189199454}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &114244020657574826
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1944811189199454}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35efb6b4d6d99c245afbc9e1435de91b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!136 &136803866211810290
 CapsuleCollider:
   m_ObjectHideFlags: 1

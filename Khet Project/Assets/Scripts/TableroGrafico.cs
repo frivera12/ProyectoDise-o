@@ -3,20 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class TableroGrafico : MonoBehaviour {
+
     //tamano del tablero
     private const float tamanioFicha = 1.0f;
     private const float borde = 0.5f;
     //posiciones de las matrizgrafica
     private int xActual = -1;
     private int yActual = -1;
-
-    private TableroLogico tablerologico;
     private FichaGrafica[,] fichasgraficasactivas { set; get; }
     private ArrayList FichasGraficas;  
     private FichaGrafica FichaSeleccionada;
 
     //posible manejo de turnos
-
 
     //posicion para rotar
     private float Xfloat = -1.0f;
@@ -39,21 +37,27 @@ public class TableroGrafico : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        FichasGraficas = new ArrayList();
-        khetappAsistente.getkhetapp.logica.getTablerologico().GenerarNivel1();
         setFichasTablero();
     }
 
     public void setFichasTablero()
     {
-        ArrayList listaFichasAux = khetappAsistente.getkhetapp.logica.getTablerologico().getFichasActivas();
-        FichaLogica logica; 
-        
-        for (int i = 0; i <listaFichasAux.Count; i++)
+        FichaLogica ficha;
+        FichaLogica[,] matriz = khetappAsistente.getkhetapp.logica.getTablerologico().getMatrizLogicaFichas();
+        int lenghtX = matriz.GetLength(0), lenghtY = matriz.GetLength(1);
+
+        for (int i = 0; i < lenghtX; i++)
         {
-            logica = (FichaLogica)listaFichasAux[i];
-            Debug.Log("tipo" + logica.getIndicePrefab() +"x: "+logica.getActualX()+ " y"+ logica.getActualY());
-            colocarFichas(logica.getIndicePrefab(), logica.getActualX(), logica.getActualY());    
+            for (int j = 0; j < lenghtY; j++)
+            {   
+                ficha = matriz[i, j];
+                if (matriz[i, j] != null)
+                {
+                    ficha = matriz[i, j];
+                    Debug.Log("tipo: " + ficha.getIndicePrefab() + " x: " + ficha.getActualX() + " y: " + ficha.getActualY());
+                    colocarFichas(ficha.getIndicePrefab(), ficha.getActualX(), ficha.getActualY());
+                }
+            }
         }
     }
     // Update is called once per frame
@@ -138,7 +142,7 @@ public class TableroGrafico : MonoBehaviour {
     }
 
     //clasico
-    public void GenerarNivel1()
+   /* public void GenerarNivel1()
     {
         FichasActivas = new List<GameObject>();
         //matrizgrafica = new FichaGrafica[10, 8];
@@ -172,7 +176,7 @@ public class TableroGrafico : MonoBehaviour {
         colocarFichas(8, 3, 5);
 
     }
-
+    */
 
     //defensivo
     public void GenerarNivel2()

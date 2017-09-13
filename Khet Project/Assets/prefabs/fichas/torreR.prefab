@@ -22,7 +22,6 @@ GameObject:
   - component: {fileID: 33724111350081956}
   - component: {fileID: 136459271393652246}
   - component: {fileID: 23667360890974938}
-  - component: {fileID: 114317992178097268}
   m_Layer: 0
   m_Name: torreR
   m_TagString: Untagged
@@ -82,17 +81,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1961763641142708}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &114317992178097268
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1961763641142708}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0456fae84b97f184e94652bd5bc7a409, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!136 &136459271393652246
 CapsuleCollider:
   m_ObjectHideFlags: 1

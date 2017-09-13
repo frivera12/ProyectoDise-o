@@ -5,8 +5,8 @@ using UnityEngine;
 public class FichaGrafica : MonoBehaviour {
 
 
-    protected int ActualX { set; get; }
-    protected int ActualY { set; get; }
+    protected int ActualX;
+    protected int ActualY;
     protected int jugador;
     protected int tipo;
     protected int indiceprefab;
@@ -17,10 +17,18 @@ public class FichaGrafica : MonoBehaviour {
     {
         FichaGrafica ficha = this;
         ficha = null;
-
-
     }
 
+
+    public int getIndicePrefab()
+    {
+        return indiceprefab;
+    }
+
+    public void setIndicePrefab(int indice)
+    {
+        indiceprefab = indice;
+    }
     public int getJugador()
     {
         return jugador;

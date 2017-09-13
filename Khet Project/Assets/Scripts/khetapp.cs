@@ -3,21 +3,17 @@ using UnityEngine;
 //clase base para comunicar lo grafico de lo logico.
 //podria comunicar tambien cliente-servidor
 
-
-
-
 public class khetapp : MonoBehaviour
 {
     public Grafica grafica;
     public Logica logica;
     public Manager manager;
     
-
-    
     public void start()
     {
 
     }
+
 }
 
 public class khetappAsistente : MonoBehaviour

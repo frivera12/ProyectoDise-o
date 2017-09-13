@@ -3,25 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class TableroLogico {
-	
-    public FichaLogica[,] matrizlogicafichas { set; get; }
-    public FichaLogica FichaSeleccionada;
+
+    private FichaLogica[,] matrizlogicafichas;
+    private FichaLogica FichaSeleccionada;
     //private FichaLogica fichaslogicasactivas;
-    public ArrayList fichaslogicasactivas=new ArrayList();
+    private ArrayList fichaslogicasactivas=new ArrayList();
 
 
     public TableroLogico()
     {
-        Debug.Log("limones");
+        Debug.Log("se inicializo el tablero logico");
+        matrizlogicafichas = new FichaLogica[10, 8];
+        GenerarNivel1();
+        insertarMatrizLogica();
+
     }
     void Awake()
     {
-
+       
     }
     // Use this for initialization
     void Start() {
-        //GenerarNivel1();
-		
+        Debug.Log("SI ENTRO");      
     }
 
     // Update is called once per frame
@@ -40,12 +43,11 @@ public class TableroLogico {
 	
  
     //clasico
-    public void GenerarNivel1() {//jugador 1 rojas
-        matrizlogicafichas = new FichaLogica[10, 8];
-
+    public void GenerarNivel1() {//jugador 1 rojas, jugador 2 blancas
+       
         FichaLogica faraonR = new Faraon(0, 1, 1, 5, 7); fichaslogicasactivas.Add(faraonR);
         FichaLogica faraonB = new Faraon(0, 6, 2, 4, 0); fichaslogicasactivas.Add(faraonB);
-
+        
         //piramides rojas
         FichaLogica piramideR1 = new Piramide(0, 3, 1, 7, 7); fichaslogicasactivas.Add(piramideR1);
         FichaLogica piramideR2 = new Piramide(0, 3, 1, 2, 6); fichaslogicasactivas.Add(piramideR2);
@@ -53,7 +55,7 @@ public class TableroLogico {
         FichaLogica piramideR4 = new Piramide(0, 3, 1, 7, 4); fichaslogicasactivas.Add(piramideR4);
         FichaLogica piramideR5 = new Piramide(0, 3, 1, 0, 3); fichaslogicasactivas.Add(piramideR5);
         FichaLogica piramideR6 = new Piramide(0, 3, 1, 7, 3); fichaslogicasactivas.Add(piramideR6);
-        FichaLogica piramideR7 = new Piramide(0, 3, 1, 6, 2); fichaslogicasactivas.Add(piramideR7);
+        FichaLogica piramideR7 = new Piramide(0, 3, 2, 3, 5); fichaslogicasactivas.Add(piramideR7);       
 
         //piramides blancas
         FichaLogica piramideB1 = new Piramide(0, 8, 2, 7, 1); fichaslogicasactivas.Add(piramideB1);
@@ -61,12 +63,12 @@ public class TableroLogico {
         FichaLogica piramideB3 = new Piramide(0, 8, 2, 9, 3); fichaslogicasactivas.Add(piramideB3);
         FichaLogica piramideB4 = new Piramide(0, 8, 2, 2, 4); fichaslogicasactivas.Add(piramideB4);
         FichaLogica piramideB5 = new Piramide(0, 8, 2, 9, 4); fichaslogicasactivas.Add(piramideB5);
-        FichaLogica piramideB6 = new Piramide(0, 8, 2, 3, 5); fichaslogicasactivas.Add(piramideB6);
+        FichaLogica piramideB6 = new Piramide(0, 8, 1, 6, 2); fichaslogicasactivas.Add(piramideB6);
         FichaLogica piramideB7 = new Piramide(0, 8, 2, 2, 0); fichaslogicasactivas.Add(piramideB7);
         //Generador Rojo
         FichaLogica generadorR = new Generador(0, 0, 1, 0, 7); fichaslogicasactivas.Add(generadorR);
         //Generador Blanco
-        FichaLogica generadorB = new Generador(0, 0, 2, 9, 0); fichaslogicasactivas.Add(generadorB);
+        FichaLogica generadorB = new Generador(0, 5, 2, 9, 0); fichaslogicasactivas.Add(generadorB);
         //Escarabajo Rojo
         FichaLogica escarabajoR1 = new Escarabajo(0, 4, 1, 4, 4); fichaslogicasactivas.Add(escarabajoR1);
         FichaLogica escarabajoR2 = new Escarabajo(0, 4, 1, 5, 4); fichaslogicasactivas.Add(escarabajoR2);
@@ -80,9 +82,18 @@ public class TableroLogico {
         FichaLogica torreB1 = new Torre(0, 7, 2, 3, 0); fichaslogicasactivas.Add(torreB1);
         FichaLogica torreB2 = new Torre(0, 7, 2, 5, 0); fichaslogicasactivas.Add(torreB2);
 
+    }
 
+    public void insertarMatrizLogica()
+    {
+        ArrayList listaFichasAux = getFichasActivas();
+        FichaLogica ficha;
 
-
+        for (int i = 0; i < listaFichasAux.Count; i++)
+        {
+            ficha = (FichaLogica)listaFichasAux[i];
+            matrizlogicafichas[ficha.getActualX(), ficha.getActualY()] = ficha;
+        }
     }
 
     //defensivo
@@ -121,11 +132,9 @@ public class TableroLogico {
         matrizlogicafichas[ficha.getActualX(), ficha.getActualY()] = null;
     }
 
-   
-
- 
-
-
-
+    public FichaLogica[,] getMatrizLogicaFichas()
+    {
+        return this.matrizlogicafichas;
+    }
 
 }
